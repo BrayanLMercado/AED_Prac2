@@ -5,7 +5,7 @@ int felinos(int numCrias,int proporcion, int yearsRemaining); // Cantidad De Fel
 void formatoImpresión(int actualYear,int years, int crias,int proporcion);
 
 int main(){
-    int crias,years,year=1;
+    int crias,years,startYear=1;
     float porcentaje;
     printf("Cantidad De Nacimientos Por Hembra: "); 
     scanf("%d",&crias);
@@ -14,7 +14,7 @@ int main(){
     printf("\nCantidad De Años A Calcular: "); 
     scanf("%d",&years);
     int proporcion=(int)(crias*(porcentaje/100));
-    formatoImpresión(year,years,crias,proporcion);
+    formatoImpresión(startYear,years,crias,proporcion);
     return 0;
 }
 
