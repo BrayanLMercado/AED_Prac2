@@ -2,10 +2,10 @@
 
 int totalFelinos(int numCrias,int proporcion, int yearsRemaining); //Total De Felinos En Una Lapso Determinado
 int felinos(int numCrias,int proporcion, int yearsRemaining); // Cantidad De Felinos Que Naceran En Un Año En Especifico
-void formatoImpresión(int actualYear,int years, int crias,int proporcion);
+void formatoImpresión(int actualYear,int years, int crias,int proporcion,int criasTotales);
 
 int main(){
-    int crias,years,startYear=1;
+    int crias,years,startYear=1,criasTotales=0;
     float porcentaje;
     printf("Cantidad De Nacimientos Por Hembra: "); 
     scanf("%d",&crias);
@@ -14,35 +14,54 @@ int main(){
     printf("\nCantidad De Años A Calcular: "); 
     scanf("%d",&years);
     int proporcion=(int)(crias*(porcentaje/100));
-    formatoImpresión(startYear,years,crias,proporcion);
+    formatoImpresión(startYear,years,crias,proporcion,criasTotales);
     return 0;
 }
 
-int totalFelinos(int numCrias, int proporcion, int yearsRemaining){
-    if(yearsRemaining>1){
-        return numCrias + totalFelinos(numCrias*proporcion,proporcion,yearsRemaining-1);
-    }
-    else
-        return numCrias;
-}
-
+/*
+La función calcula la cantidad de crias que naceran en un año especifico, a la vez que imprimime la cantidad
+de crias de crias del año anterior para posteriormente calcular las del siguiente año, así hasta calcular la cantidad de años
+que se solicitaron.
+*/
 int felinos(int numCrias, int proporcion, int yearsRemaining){
     if(yearsRemaining>1){
+        printf(" %d +",numCrias);
         return felinos(numCrias*proporcion,proporcion,yearsRemaining-1);
     }
-    else
+    else{
+        printf(" %d\n",numCrias);
         return numCrias;
+    }
 }
 
-void formatoImpresión(int actualYear,int years, int crias,int proporcion){
-    for(int idx=0;idx<years;idx++){
-        printf("Año %d: ",actualYear+idx);
-        for(int jdx=0;jdx<=idx;jdx++){
-            printf("%d ",felinos(crias,proporcion,jdx+1));
-            if(jdx<idx)
-                printf("+ ");
-        }
-        printf("\n");
+/*
+La siguiente función imprime la cantidad de crias que han nacido en un año especifico más las que nacieron en años anteriores
+con el sigueinte formato:
+
+Año 1: numeroDeCriasIniciales
+Año 2: numeroDeCriasIniciales + numCriasDelAño2
+Año 3: numeroDeCriasIniciales + numCriasDelAño2 + numCriasDelAño3
+.
+.
+.
+Año n: numeroDeCriasIniciales + numCriasDelAño2 + numCriasDelAño3 + ... + numCriasDelAño n
+y forma adicional, obtiene la cantidad de crias totales que existiran al final del lapso de tiempo indicado.
+*/
+void formatoImpresión(int actualYear,int totalYears, int crias,int proporcion,int criasTotales){
+    if(actualYear<=totalYears){
+        printf("Año %d:",actualYear);
+        criasTotales+=felinos(crias,proporcion,actualYear);
+        formatoImpresión(actualYear+1,totalYears,crias,proporcion,criasTotales);
     }
-    printf("Total De Felinos Al Final De Los %d Años: %d\n",years,totalFelinos(crias,proporcion,years));
+    else
+        printf("Total De Felinos Al Final De Los %d Años: %d\n",totalYears,criasTotales);
 }
+
+/*
+Nombre: Brayan López Mercado
+Matrícula: 1280838
+Fecha DE Entrega: 4 De Septiembre De 2024
+Materia: Algoritmos y Estructura De Datos
+Grupo: 552
+Practica 2: Aplicando Recursividad
+*/
