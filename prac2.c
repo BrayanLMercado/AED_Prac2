@@ -1,6 +1,5 @@
 #include<stdio.h>
 
-int totalFelinos(int numCrias,int proporcion, int yearsRemaining); //Total De Felinos En Una Lapso Determinado
 int felinos(int numCrias,int proporcion, int yearsRemaining); // Cantidad De Felinos Que Naceran En Un Año En Especifico
 void formatoImpresión(int actualYear,int years, int crias,int proporcion,int criasTotales);
 
